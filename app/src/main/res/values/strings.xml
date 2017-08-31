@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NFCReaderApplication</string>
+    <string name="my_app_hce_service">HCE_SERVICE</string>
+    <string name="my_app_aid_group">HCE_AID_GROUP</string>
 </resources>
