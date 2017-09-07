@@ -11,20 +11,77 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+//    signingConfigs {
+//        config {
+//            storeFile file("keystore.android")
+//            storePassword "okline"
+//            keyAlias "myandroidkey"
+//            keyPassword "okline"
+//        }
+//    }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+//            signingConfig signingConfigs.config
+        }
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+//            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        google {
+
+        }
+        microsoft {
+
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def file = output.outputFile
+            println(file.name)
+            println("variant.name:${variant.name} variant.buildType:${variant.buildType} variant.versionCode:${variant.versionCode} variant.versionName:${variant.versionName} output.name:${output.name} output.versionCode:${output.versionCode} output.outputFile.absolutePath:${output.outputFile.absolutePath} output.assemble:${output.assemble} output.dirName:${output.dirName}")
+        }
+    }
+    /*
+app-google-debug.apk
+variant.name:googleDebug
+variant.buildType:com.android.build.gradle.internal.api.ReadOnlyBuildType@54e8b5f
+variant.versionCode:1
+variant.versionName:1.0
+output.name:googleDebug
+output.versionCode:1
+output.outputFile.absolutePath:C:\Users\Lenovo\MyAndroidProjects\NFCReaderApplication\app\build\outputs\apk\app-google-debug.apk
+output.assemble:task ':app:assembleGoogleDebug'
+output.dirName:google/debug
+
+app-google-release-unsigned.apk
+variant.name:googleRelease variant.buildType:com.android.build.gradle.internal.api.ReadOnlyBuildType@4adf1764 variant.versionCode:1 variant.versionName:1.0 output.name:googleRelease output.versionCode:1 output.outputFile.absolutePath:C:\Users\Lenovo\MyAndroidProjects\NFCReaderApplication\app\build\output
+s\apk\app-google-release-unsigned.apk output.assemble:task ':app:assembleGoogleRelease' output.dirName:google/release
+
+app-microsoft-debug.apk
+variant.name:microsoftDebug variant.buildType:com.android.build.gradle.internal.api.ReadOnlyBuildType@54e8b5f variant.versionCode:1 variant.versionName:1.0 output.name:microsoftDebug output.versionCode:1 output.outputFile.absolutePath:C:\Users\Lenovo\MyAndroidProjects\NFCReaderApplication\app\build\outpu
+ts\apk\app-microsoft-debug.apk output.assemble:task ':app:assembleMicrosoftDebug' output.dirName:microsoft/debug
+
+app-microsoft-release-unsigned.apk
+variant.name:microsoftRelease variant.buildType:com.android.build.gradle.internal.api.ReadOnlyBuildType@4adf1764 variant.versionCode:1 variant.versionName:1.0 output.name:microsoftRelease output.versionCode:1 output.outputFile.absolutePath:C:\Users\Lenovo\MyAndroidProjects\NFCReaderApplication\app\build\
+outputs\apk\app-microsoft-release-unsigned.apk output.assemble:task ':app:assembleMicrosoftRelease' output.dirName:microsoft/release
+*/
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

@@ -18,6 +18,8 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task cleanBuildDir(type: Delete,group:BasePlugin.BUILD_GROUP) {
+    allprojects {
+        delete project.buildDir.path
+    }
 }
